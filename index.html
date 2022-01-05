@@ -73,7 +73,7 @@
 
     <!-- Quadrinhos -->
     <div ng-if="mostrarLimparQuadrinhos">
-        <h2 id='quadrinhos'>QUADRINHOS</h2>
+        <h2 id='quadrinhos'>DESCRIÇÃO E QUADRINHOS</h2>
         <div class="descricaoHeroi">
             <p ng-bind='heroiDesc'></p>
         </div>
@@ -81,7 +81,7 @@
 
 
     <div ng-if='mostrarLimparQuadrinhos' class="father white">
-        <div class="card" id='quadrinhosVerMais' ng-repeat="quadrinho in teste track by $index">
+        <div class="card" id='quadrinhosVerMais' ng-repeat="quadrinho in quadrinhosArray track by $index">
             <img id="quadrinhoImg" ng-if="quadrinhoImg" ng-src="{{ quadrinhoImg }}" alt="Avatar">
             <div>
                 <h5><b ng-bind="quadrinho.name"> </b></h5>
