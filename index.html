@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html> -->
+
+<html ng-app="marvelApi" lang="pt-br">
+
+<head>
+    <title>Marvel Api</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    </link>
+    <script src="jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="script.js"></script>
+
+</head>
+
+<body ng-controller="marvelApiCtrl">
+
+    <!-- Menu -->
+    <header id='meuHeader'>
+
+        <div id='logo'>
+            <img src="img/Marvel_Logo.svg.png" alt="marvel_Logo">
+        </div>
+        <ul id='minhaUl'>
+            <li><a href="#apresentacao">Início</a></li>
+            <li><a href="#characters">Heróis</a></li>
+        </ul>
+        <i class="fas fa-times" id='botao-2'></i>
+        <i class="fas fa-bars" id='botao'></i>
+
+    </header>
+
+    <!-- INICIO -->
+    <div id='apresentacao'>
+
+        <div id='divTitulo'>
+            <h1>MARVEL <span>API</span></h1>
+            <p>Conheça os quadrinhos e heróis da API da Marvel!</p>
+        </div>
+        <img src="img/wallpaperflare.com_wallpaper.jpg" alt="fundo_Marvel">
+
+    </div>
+
+    <!-- Heróis -->
+    <h2 id='characters'>PESQUISAR PERSONAGEM</h2>
+
+    <form class='menuSearch'>
+
+        <input class="cursor" type="text" ng-model="heroi.nome" placeholder="Faça sua Busca" required>
+        <button name="search" id="search" class="btn btn-danger btn-block btn-pesquisar"
+            ng-click="pesquisarHeroi(heroi)">PESQUISAR</button>
+        <button name="clear" id="clear" class="btn btn-warning btn-block" ng-click="limparInput(heroi)">LIMPAR</button>
+        <label class="" id="naoEncontrado" ng-hide="naoEncontrado">Ops, herói não Encontrado</label
+            class="elementToFadeInAndOut">
+        <i class="fas fa-search fa-1x"></i>
+
+    </form>
+
+    <div id="cardMarvel" ng-model="heroiImg">
+
+        <img id="imgHero" ng-if="heroiImg" ng-src="{{heroiImg}}" alt="Avatar">
+        <div class="containe">
+            <h4><b ng-bind="heroiName"> </b></h4>
+            <!-- <p ng-bind='heroiDesc'></p> -->
+        </div>
+        <div>
+            <button href="#quadrinhos" ng-if="heroiImg" name="search" id="search" class="btn btn-danger btn-block btnVerMais"
+                ng-click="pesquisarQuadrinhos(quadrinhos)">VER MAIS</button>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Quadrinhos -->
+    <div ng-if="mostrarLimparQuadrinhos">
+        <h2 id='quadrinhos'>DESCRIÇÃO E QUADRINHOS</h2>
+        <div class="descricaoHeroi">
+            <p ng-bind='heroiDesc'></p>
+        </div>
+    </div>
+
+
+    <div ng-if='mostrarLimparQuadrinhos' class="father white">
+        <div class="cardQuadrinho" id='quadrinhosVerMais' ng-repeat="quadrinho in quadrinhosInfo track by $index">
+            <img id="quadrinhoImg" ng-if="quadrinhoImg" ng-src="{{ quadrinho.img }}" alt="Avatar">
+            <div>
+                <h5 class="quadrinhoTitle"><b ng-bind="quadrinho.title"> </b></h5>
+                <!-- <p >{{quadrinho.name}}</p> -->
+            </div>
+        </div>
+    </div>
+
+    <footer id='meuFooter'>
+        <p>Carlos Eduardo </p>
+    </footer>
+
+</body>
+
+</html>
