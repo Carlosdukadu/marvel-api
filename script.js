@@ -34,7 +34,6 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
         $scope.naoEncontrado = true;
         $scope.heroiName = element.name
         $scope.heroiDesc = element.description
-        console.log(element, '-----element----');
 
         if (element.thumbnail.path != 'IMAGE_NOT_AVAIL' & element.thumbnail.extension != 'IMAGE_NOT_AVAIL') {
           $scope.heroiImg = element.thumbnail.path + '/portrait_xlarge' + '.' + element.thumbnail.extension
@@ -76,8 +75,8 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
 
         response.data.data.results.forEach((element) => {
 
-          $scope.quadrinhoImg = element.images
-          $scope.quadrinhoImg = { img: $scope.quadrinhoImg[0].path + '/portrait_xlarge' + '.' + $scope.quadrinhoImg[0].extension, title: element.title }
+          $scope.quadrinhoImg = element.thumbnail
+          $scope.quadrinhoImg = { img: $scope.quadrinhoImg.path + '/portrait_xlarge' + '.' + $scope.quadrinhoImg.extension, title: element.title }
           $scope.quadrinhosInfo.push($scope.quadrinhoImg)
 
         })
@@ -94,10 +93,11 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
     $scope.heroiDesc = null
     $scope.naoEncontrado = true;
     $scope.mostrarLimparQuadrinhos = false
+    $scope.quadrinhosInfo = []
   }
   $scope.limparQuadrinhos = function (heroi) {
     $scope.mostrarLimparQuadrinhos = false
-    $scope.quadrinhosInfo
+    $scope.quadrinhosInfo = []
   }
 
 });
