@@ -4,6 +4,7 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
   // Arrys utilizados nas funções
   $scope.itensQuadrinhos = []
   $scope.quadrinhosArray = []
+  $scope.quadrinhosInfo = []
 
   $scope.imagePath = 'assets/angular-material-assets/img/washedout.png';
   $scope.heroiId;
@@ -33,6 +34,7 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
         $scope.naoEncontrado = true;
         $scope.heroiName = element.name
         $scope.heroiDesc = element.description
+        console.log(element, '-----element----');
 
         if (element.thumbnail.path != 'IMAGE_NOT_AVAIL' & element.thumbnail.extension != 'IMAGE_NOT_AVAIL') {
           $scope.heroiImg = element.thumbnail.path + '/portrait_xlarge' + '.' + element.thumbnail.extension
@@ -55,7 +57,7 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
     $http.get(baseUrl + $scope.heroiId + apiKey + hash)
       .then(function (response) {
 
-        $scope.quadrinhosArray = response.data.data.results[0].series.items
+        // $scope.quadrinhosArray = response.data.data.results[0].series.items
 
         response.data.data.total ? '' : $scope.naoEncontrado = false;
 
@@ -65,7 +67,7 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
           $scope.naoEncontrado = true;
           $scope.mostrarLimparQuadrinhos = true;
           $scope.quadrinhoDesc = element.description
-          $scope.quadrinhoImg = element.thumbnail.path + '/portrait_xlarge' + '.' + element.thumbnail.extension
+          // $scope.quadrinhoImg = element.thumbnail.path + '/portrait_xlarge' + '.' + element.thumbnail.extension
         })
 
       }, function (err) {
@@ -74,15 +76,33 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
 
     $http.get(baseUrl + $scope.heroiId + '/comics' + apiKey + hash)
       .then((response) => {
-        console.log(response,'----response quadrinhos----');
+        console.log(response, '----response quadrinhos----');
         response.data.data.results.forEach((element) => {
-          $scope.quadrinhoImg = element
+          console.log(element.title, '---- element----');
+
+          $scope.quadrinhoImg = element.images
+          // console.log($scope.quadrinhoImg, '---- $scope.quadrinhoImg DENTRO----');
+          // console.log($scope.quadrinhoImg[0].path, '---- $scope.quadrinhoImg IMAGES----');
+          // $scope.quadrinhoImg = element.title
+          $scope.quadrinhoImg = {img: $scope.quadrinhoImg[0].path + '/portrait_xlarge' + '.' + $scope.quadrinhoImg[0].extension, title: element.title}
+          $scope.quadrinhosInfo.push($scope.quadrinhoImg)
+
+          console.log($scope.quadrinhosInfo, '---- IMAGES final----');
+          // console.log($scope.quadrinhosInfo, '----$scope.quadrinhosInfo  DENTRO----');
+
 
         })
       }, err => {
         console.log(err);
       })
-      console.log(re $scope.quadrinhoImgsponse,'----response quadrinhos----');
+    // console.log($scope.quadrinhosInfo, '----$scope.quadrinhosInfo----');
+
+    // $scope.quadrinhoImg.images.forEach((elementImg) => {
+
+    // console.log($scope.quadrinhoImg.images ,'---- IMAGES final----');
+
+    // })
+    // console.log($scope.quadrinhoImgsponse,'---- $scope.quadrinhoImg FORA----');
 
   };
 
