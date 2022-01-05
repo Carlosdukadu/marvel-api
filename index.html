@@ -7,17 +7,13 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     </link>
-
     <script src="jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-
     <script src="script.js"></script>
-
 
 </head>
 
 <body ng-controller="marvelApiCtrl">
-
 
     <!-- Menu -->
     <header id='meuHeader'>
@@ -25,7 +21,6 @@
         <div id='logo'>
             <img src="img/Marvel_Logo.svg.png" alt="marvel_Logo">
         </div>
-
         <ul id='minhaUl'>
             <li><a href="#apresentacao">Início</a></li>
             <li><a href="#characters">Heróis</a></li>
@@ -35,14 +30,13 @@
 
     </header>
 
-    <!-- Parte da apresentação -->
+    <!-- INICIO -->
     <div id='apresentacao'>
 
         <div id='divTitulo'>
             <h1>MARVEL <span>HERÓIS</span></h1>
             <p>Conheça os quadrinhos e heróis da API da Marvel!</p>
         </div>
-
         <img src="wallpaperflare.com_wallpaper.jpg" alt="fundo_Marvel">
 
     </div>
@@ -51,76 +45,50 @@
     <h2 id='characters'>PESQUISAR HERÓIS</h2>
 
     <form class='menuSearch'>
+
         <input class="cursor" type="text" ng-model="heroi.nome" placeholder="Faça sua Busca" required>
-
-        <button name="search" id="search" class="btn btn-primary btn-block"
+        <button name="search" id="search" class="btn btn-danger btn-block btn-pesquisar"
             ng-click="pesquisarHeroi(heroi)">PESQUISAR</button>
-
         <button name="clear" id="clear" class="btn btn-warning btn-block" ng-click="limparInput(heroi)">LIMPAR</button>
         <label class="" id="naoEncontrado" ng-hide="naoEncontrado">Ops, herói não Encontrado</label
             class="elementToFadeInAndOut">
         <i class="fas fa-search fa-1x"></i>
+
     </form>
 
     <div id="cardMarvel" ng-model="heroiImg">
 
         <img id="imgHero" ng-if="heroiImg" ng-src="{{heroiImg}}" alt="Avatar">
-
         <div class="containe">
             <h4><b ng-bind="heroiName"> </b></h4>
-            <p ng-bind='heroiDesc'></p>
+            <!-- <p ng-bind='heroiDesc'></p> -->
         </div>
-
-
         <div class="btnVerMais">
-            <button ng-if="heroiImg" name="search" id="search" class="btn btn-primary btn-block"
+            <button href="#quadrinhos" ng-if="heroiImg" name="search" id="search" class="btn btn-danger btn-block"
                 ng-click="pesquisarQuadrinhos(quadrinhos)">VER MAIS</button>
             </button>
         </div>
 
- 
+    </div>
+
+    <!-- Quadrinhos -->
+    <div ng-if="mostrarLimparQuadrinhos">
+        <h2 id='quadrinhos'>QUADRINHOS</h2>
+        <div class="descricaoHeroi">
+            <p ng-bind='heroiDesc'></p>
+        </div>
     </div>
 
 
-
-    <!-- Quadrinhos -->
-    <!-- <div nf-if=''>
-        <h2 id='quadrinhos'>QUADRINHOS</h2>
-
-        <form class='menuSearch'>
-            <input type="text" name="search" id="search1" placeholder="Faça sua Busca" required>
-            <i class="fas fa-search fa-1x"></i>
-        </form>
-
-        <div id="meusQuadrinhos"></div>
-
-    </div> -->
-
-    <div id="father white">
-        <div id='quadrinhosVerMais' ng-repeat="quadrinho in teste track by $index">
+    <div ng-if='mostrarLimparQuadrinhos' class="father white">
+        <div class="card" id='quadrinhosVerMais' ng-repeat="quadrinho in teste track by $index">
             <img id="quadrinhoImg" ng-if="quadrinhoImg" ng-src="{{ quadrinhoImg }}" alt="Avatar">
-            <div >
+            <div>
                 <h5><b ng-bind="quadrinho.name"> </b></h5>
                 <!-- <p >{{quadrinho.name}}</p> -->
             </div>
         </div>
     </div>
-
-    <!-- <div id="container" iso-grid width="500px" height="500px">
-        <div ng-repeat="card in cards" class="item {{card.class}}" ng-controller="aggCardController">
-            <table width="100%">
-                <tr>
-                    <td text-align="center">
-                        <h4>{{card.name}}</h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td text-align="center"><h2>{{getOption()}}</h2></td>
-                </tr>
-            </table>        
-        </div>
-    </div> -->
-
 
     <footer id='meuFooter'>
         <p>Carlos Eduardo </p>
@@ -133,11 +101,6 @@
             </div>
         </div>
     </div>
-
-    <!-- futuramente nosso conteudo ficara aqui -->
-    <!-- <div ng-include='"templates/header.html"'></div> -->
-    <!-- <div class="container" ng-view="conteudo"></div>
-<div ng-include='"templates/footer.html"'></div> -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
     <script src="main.js"></script>
