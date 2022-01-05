@@ -57,8 +57,6 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
     $http.get(baseUrl + $scope.heroiId + apiKey + hash)
       .then(function (response) {
 
-        // $scope.quadrinhosArray = response.data.data.results[0].series.items
-
         response.data.data.total ? '' : $scope.naoEncontrado = false;
 
         response.data.data.results.forEach((element) => {
@@ -67,7 +65,6 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
           $scope.naoEncontrado = true;
           $scope.mostrarLimparQuadrinhos = true;
           $scope.quadrinhoDesc = element.description
-          // $scope.quadrinhoImg = element.thumbnail.path + '/portrait_xlarge' + '.' + element.thumbnail.extension
         })
 
       }, function (err) {
@@ -76,36 +73,19 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
 
     $http.get(baseUrl + $scope.heroiId + '/comics' + apiKey + hash)
       .then((response) => {
-        console.log(response, '----response quadrinhos----');
+
         response.data.data.results.forEach((element) => {
-          console.log(element.title, '---- element----');
 
           $scope.quadrinhoImg = element.images
-          // console.log($scope.quadrinhoImg, '---- $scope.quadrinhoImg DENTRO----');
-          // console.log($scope.quadrinhoImg[0].path, '---- $scope.quadrinhoImg IMAGES----');
-          // $scope.quadrinhoImg = element.title
-          $scope.quadrinhoImg = {img: $scope.quadrinhoImg[0].path + '/portrait_xlarge' + '.' + $scope.quadrinhoImg[0].extension, title: element.title}
+          $scope.quadrinhoImg = { img: $scope.quadrinhoImg[0].path + '/portrait_xlarge' + '.' + $scope.quadrinhoImg[0].extension, title: element.title }
           $scope.quadrinhosInfo.push($scope.quadrinhoImg)
-
-          console.log($scope.quadrinhosInfo, '---- IMAGES final----');
-          // console.log($scope.quadrinhosInfo, '----$scope.quadrinhosInfo  DENTRO----');
-
 
         })
       }, err => {
         console.log(err);
       })
-    // console.log($scope.quadrinhosInfo, '----$scope.quadrinhosInfo----');
-
-    // $scope.quadrinhoImg.images.forEach((elementImg) => {
-
-    // console.log($scope.quadrinhoImg.images ,'---- IMAGES final----');
-
-    // })
-    // console.log($scope.quadrinhoImgsponse,'---- $scope.quadrinhoImg FORA----');
 
   };
-
 
   $scope.limparInput = function (heroi) {
     heroi.nome = null
@@ -117,6 +97,7 @@ angular.module("marvelApi").controller("marvelApiCtrl", function ($scope, $http)
   }
   $scope.limparQuadrinhos = function (heroi) {
     $scope.mostrarLimparQuadrinhos = false
+    $scope.quadrinhosInfo
   }
 
 });
